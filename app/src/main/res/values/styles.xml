@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.Title" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+
+    <style name="CircularProgressBarStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36sp</item>
+        <item name="android:layout_margin">8dp</item>
+
+        <!--
+        <item name="cpb_textIdle">@string/app_name</item>
+        <item name="cpb_textComplete">@string/app_name</item>
+        <item name="cpb_textError">@string/app_name</item>
+        -->
+
+        <item name="android:textSize">14sp</item>
+        <item name="cpb_colorProgress">@android:color/transparent</item>
+        <item name="cpb_colorIndicator">@color/c_app_main_color</item>
+        <item name="cpb_colorIndicatorBackground">@color/c_material_red_A900</item>
+    </style>
+    <style name="CircularProgressBarStyle.Empty" parent="@style/CircularProgressBarStyle">
+        <item name="cpb_selectorIdle">@drawable/cpb_idle_state_selector_empty</item>
+        <item name="cpb_selectorComplete">@drawable/cpb_idle_state_selector_empty</item>
+        <item name="cpb_selectorError">@drawable/cpb_idle_state_selector_empty</item>
+        <item name="android:textColor">@drawable/selector_text_empty</item>
+    </style>
+
+    <style name="CircularProgressBarStyle.VipCard" parent="@style/CircularProgressBarStyle.Full">
+        <item name="cpb_iconComplete">@drawable/ok_green</item>
+        <item name="cpb_iconError">@drawable/cancel_red</item>
+        <item name="cpb_textIdle">@string/s_name_vipcard_save</item>
+    </style>
+
+    <style name="CircularProgressBarStyle.Full" parent="@style/CircularProgressBarStyle">
+        <item name="cpb_selectorIdle">@drawable/cpb_idle_state_selector_full</item>
+        <item name="cpb_selectorComplete">@drawable/cpb_idle_state_selector_full</item>
+        <item name="cpb_selectorError">@drawable/cpb_idle_state_selector_full</item>
+        <item name="android:textColor">@drawable/selector_text_full</item>
+    </style>
+</resources>

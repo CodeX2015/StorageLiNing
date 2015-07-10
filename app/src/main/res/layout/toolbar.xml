@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+                                   xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="?android:attr/actionBarSize"
+                                   android:background="@color/c_app_main_color"
+                                   android:theme="@style/AppTheme.Title"
+                                   app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+        <FrameLayout android:layout_width="35dp" android:layout_height="35dp"
+            android:layout_toLeftOf="@+id/action_settings"
+                     android:layout_marginRight="@dimen/d_default_padding_10dp"
+            >
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_clearFields"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@android:color/transparent"
+                app:rd_backgroundColor="@color/c_material_red_900"
+                app:rd_enable="true"
+                />
+
+            <ImageView android:layout_width="35dp" android:layout_height="35dp"
+                       android:src="@drawable/ic_refresh"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/action_settings"
+            android:layout_width="35dp" android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp">
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_settings"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@android:color/transparent"
+                app:rd_backgroundColor="@color/c_material_red_900"
+                app:rd_enable="true"
+                />
+
+            <ImageView android:layout_width="35dp" android:layout_height="35dp"
+                       android:src="@drawable/ic_action_settings"
+                />
+
+        </FrameLayout>
+
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

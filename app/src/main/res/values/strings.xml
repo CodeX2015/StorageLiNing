@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">LN-VIP</string>
+    <string name="s_alert_login">Введите логин!</string>
+    <string name="s_alert_pass">Введите пароль!</string>
+    <string name="s_alert_api">Введите адрес сервера!</string>
+
+    <!-- Dialog -->
+    <string name="s_dialog_title">"Ой, что то пошло не так...."</string>
+    <string name="s_dialog_message">"Ошибка: "</string>
+    <string name="s_layout_message">"Ошибка, попробуйте еще раз.."</string>
+    <string name="s_dialog_message_wifi">"Для работы с приложением необходимо включенное Wi-Fi соединение "</string>
+
+    <!-- Dialog date-->
+    <string name="s_datedialog_header">Выберите дату рождения</string>
+
+    <!-- vipcard save-->
+    <string name="s_name_vipcard_save">Зарегистрировать карту</string>
+
+    <string name="s_required_field">Обязательное поле для заполнения!</string>
+</resources>

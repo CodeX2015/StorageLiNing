@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shops">
+        <item>Худжанд 1</item>
+        <item>Худжанд 2</item>
+        <item>Душанбе 1</item>
+        <item>Душанбе 2</item>
+        <item>Сомон 1</item>
+    </string-array>
+</resources>
