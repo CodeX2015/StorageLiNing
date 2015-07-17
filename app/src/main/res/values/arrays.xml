@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="shops">
-        <item>Худжанд 1</item>
-        <item>Худжанд 2</item>
-        <item>Душанбе 1</item>
-        <item>Душанбе 2</item>
-        <item>Сомон 1</item>
+        <item>cash_somon|Сомон</item>
+        <item>cash_dushanbe|Душанбе</item>
+        <item>cash_lining|Худжанд</item>
+    </string-array>
+    <string-array name="sizes_wear">
+        <item>XXS</item>
+        <item>XS</item>
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+        <item>XL</item>
+        <item>XXL</item>
+        <item>3XL</item>
+        <item>4XL</item>
+        <item>5XL</item>
+    </string-array>
+    <string-array name="sizes_shoes">
+        <item>4.5</item>
+        <item>5</item>
+        <item>5.5</item>
+        <item>6</item>
+        <item>6.5</item>
+        <item>7</item>
+        <item>7.5</item>
+        <item>8</item>
+        <item>8.5</item>
+        <item>9</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>10.5</item>
+        <item>11</item>
+        <item>11.5</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="gender">
+        <item>m|М</item>
+        <item>f|Ж</item>
     </string-array>
 </resources>

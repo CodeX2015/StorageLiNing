@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Eugene on 09.07.2015.
  */
-public class ActivitySplashScreen extends ActivityMain {
+public class ActivitySplashScreen extends AppCompatActivity {
     private SharedPreferences mSettings;
 
     @Override

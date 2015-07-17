@@ -6,14 +6,18 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.Spinner;
+import com.vipcartlining.vipcardlining.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Eugene on 07.07.2015.
@@ -26,14 +30,12 @@ public class ActivitySettings extends Activity {
     public static final String USER_LOGIN = "Login";
     public static final String USER_PASS = "Password";
     public static final String SHOP = "Shop";
-
     private SharedPreferences mSettings;
     private MaterialEditText edtLogin;
     private MaterialEditText edtPass;
     private MaterialEditText edtApiAdr;
     private Spinner spShops;
     private Button btnSave;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,14 @@ public class ActivitySettings extends Activity {
         spShops = (Spinner) findViewById(R.id.sp_shops);
         btnSave = (Button) findViewById(R.id.btn_save);
 
-        Resources res = getResources();
-        String[] shops = res.getStringArray(R.array.shops);
+        Map<String, String> map =  Utils.parseStringArray(this, R.array.shops);
+
+        ArrayList<String> shops = new ArrayList<String>();
+        for(int i = 0; i < map.size(); i++) {
+            String key = (String) map.keySet().toArray()[i];
+            // get the object by the key.
+            shops.add(map.get(key));
+        }
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner_shops, shops);
 
@@ -58,8 +66,10 @@ public class ActivitySettings extends Activity {
         edtPass.setText(mSettings.getString(USER_PASS, ""));
         edtApiAdr.setText(mSettings.getString(API_ADDRESS, ""));
 
-        String spinnerSelectedItem = mSettings.getString(SHOP, shops[0]);
-        int spinnerSelectedItemIndex = Arrays.asList(shops).indexOf(spinnerSelectedItem);
+        String spinnerSelectedItem = mSettings.getString(SHOP, shops.get(0));
+        int spinnerSelectedItemIndex = shops.indexOf(spinnerSelectedItem);
+
+
         spShops.setSelection(spinnerSelectedItemIndex);
 
         btnSave.setOnClickListener(new View.OnClickListener() {

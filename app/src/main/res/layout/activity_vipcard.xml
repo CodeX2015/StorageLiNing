@@ -66,7 +66,36 @@
                 android:textSize="16sp"
                 app:met_primaryColor="@color/c_app_main_color"/>
 
+            <!--
+            <com.rey.material.widget.Spinner
+                android:id="@+id/sp_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Отчество"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                />
+            -->
 
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/sp_gender"
+                app:ms_multiline="true"
+                app:ms_hint="@string/s_gender"
+                app:ms_baseColor="@color/c_hint_text"
+                app:ms_highlightColor="@color/c_cpb_grey"
+                app:ms_errorColor="@color/c_error_text"
+                app:ms_arrowColor="@color/c_app_main_color"
+                app:ms_arrowSize="16dp"
+                app:ms_alignLabels="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+<!--
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/button_material_light" />
+-->
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
@@ -102,26 +131,67 @@
             <!--
     android:focusable="false"
     android:focusableInTouchMode="false"
-                  -->
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/etWear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Размер одежды"
-                android:inputType="text"
-                android:textSize="16sp"
-                app:met_primaryColor="@color/c_app_main_color"/>
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/etShoes"
+            <com.rey.material.widget.Spinner
+                android:id="@+id/sp_size_wear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Размер обуви"
-                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:hint="Отчество"
+                android:inputType="textPersonName"
                 android:textSize="16sp"
-                app:met_primaryColor="@color/c_app_main_color"/>
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/button_material_light" />
+  -->
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/sp_size_wear"
+                app:ms_multiline="true"
+                app:ms_hint="@string/s_size_wear"
+                app:ms_baseColor="@color/c_hint_text"
+                app:ms_highlightColor="@color/c_cpb_grey"
+                app:ms_errorColor="@color/c_error_text"
+                app:ms_arrowColor="@color/c_app_main_color"
+                app:ms_arrowSize="16dp"
+                app:ms_alignLabels="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--
+            <com.rey.material.widget.Spinner
+                android:id="@+id/sp_size_shoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Отчество"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/button_material_light" />
+            -->
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/sp_size_shoes"
+                app:ms_multiline="true"
+                app:ms_hint="@string/s_size_shoes"
+                app:ms_baseColor="@color/c_hint_text"
+                app:ms_highlightColor="@color/c_cpb_grey"
+                app:ms_errorColor="@color/c_error_text"
+                app:ms_arrowColor="@color/c_app_main_color"
+                app:ms_arrowSize="16dp"
+                app:ms_alignLabels="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etDiscountCode"

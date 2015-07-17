@@ -4,6 +4,9 @@
     <string name="s_alert_pass">Введите пароль!</string>
     <string name="s_alert_api">Введите адрес сервера!</string>
 
+    <string name="s_gender">Пол</string>
+    <string name="s_size_wear">Размер одежды </string>
+    <string name="s_size_shoes">Размер обуви</string>
     <!-- Dialog -->
     <string name="s_dialog_title">"Ой, что то пошло не так...."</string>
     <string name="s_dialog_message">"Ошибка: "</string>

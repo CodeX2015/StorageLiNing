@@ -1,6 +1,7 @@
 package com.vipcartlining.vipcardlining;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,18 +13,32 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ImageButton;
+import com.rey.material.widget.Spinner;
 import com.vipcartlining.vipcardlining.cpb.CircularProgressButton;
 import com.vipcartlining.vipcardlining.utils.DateDialogFrament;
 import com.vipcartlining.vipcardlining.utils.NetworkHelper;
 import com.vipcartlining.vipcardlining.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 /**
  * Created by CodeX on 05.07.2015.
@@ -36,22 +51,27 @@ public class ActivityVipCard extends AppCompatActivity {
     private MaterialEditText etFName;
     private MaterialEditText etLName;
     private MaterialEditText etMName;
+    private MaterialSpinner spGender;
+    private MaterialSpinner spSizeWear;
+    private MaterialSpinner spSizeShoes;
     private MaterialEditText etPhone;
     private MaterialEditText etDiscountCode;
     private MaterialEditText etEmail;
     private MaterialEditText etBirthday;
-    private MaterialEditText etWear;
-    private MaterialEditText etShoes;
     private ImageButton btnScanCartCode;
     private ImageButton btnAddPhoto;
-
     private Button btnRefresh;
     private Button btnSettings;
-
     private ImageView ivPhoto;
     private CircularProgressButton btnAddCard;
     private String valiBirthdDate;
     private boolean isDialogAlreadyShowed;
+
+    SpinnerAdapterWithHint sizesWearAdapter;
+    SpinnerAdapterWithHint genderAdapter;
+    SpinnerAdapterWithHint sizesShoesAdapter;
+    Map<String, String> map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +85,8 @@ public class ActivityVipCard extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkFields()) {
                     btnAddCard.setProgress(1);
-                    addVipCard();
+                   addVipCard();
+
                 }
             }
         });
@@ -73,12 +94,13 @@ public class ActivityVipCard extends AppCompatActivity {
         etFName = (MaterialEditText) findViewById(R.id.etFirstName);
         etLName = (MaterialEditText) findViewById(R.id.etLastName);
         etMName = (MaterialEditText) findViewById(R.id.etPatronymic);
+        spGender = (MaterialSpinner) findViewById(R.id.sp_gender);
         etPhone = (MaterialEditText) findViewById(R.id.etPhone);
         etDiscountCode = (MaterialEditText) findViewById(R.id.etDiscountCode);
         etEmail = (MaterialEditText) findViewById(R.id.etEmail);
         etBirthday = (MaterialEditText) findViewById(R.id.etBirthday);
-        etWear = (MaterialEditText) findViewById(R.id.etWear);
-        etShoes = (MaterialEditText) findViewById(R.id.etShoes);
+        spSizeWear = (MaterialSpinner) findViewById(R.id.sp_size_wear);
+        spSizeShoes = (MaterialSpinner) findViewById(R.id.sp_size_shoes);
         ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
         btnAddPhoto = (ImageButton) findViewById(R.id.btn_addPhoto);
         btnScanCartCode = (ImageButton) findViewById(R.id.btn_scanCartCode);
@@ -112,7 +134,7 @@ public class ActivityVipCard extends AppCompatActivity {
         btnScanCartCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // etDiscountCode.setText("000000000444");
+
 
                 Intent intent = new Intent(ActivityVipCard.this, ActivityCodeScanner.class);
                 startActivityForResult(intent, REQUEST_CODE_CARD_BARCODE);
@@ -128,6 +150,56 @@ public class ActivityVipCard extends AppCompatActivity {
                 return false;
             }
         });
+
+        setSpinners();
+    }
+
+    //ToDo optimize adapter filling
+    private void setSpinners(){
+
+        map =  Utils.parseStringArray(this, R.array.gender);
+
+        ArrayList<String> gender = new ArrayList<String>();
+        for(int i = 0; i < map.size(); i++) {
+            String key = (String) map.keySet().toArray()[i];
+            // get the object by the key.
+            gender.add(map.get(key));
+        }
+
+        String[] sizesWear = getResources().getStringArray(R.array.sizes_wear);
+        String[] sizesShoes = getResources().getStringArray(R.array.sizes_shoes);
+
+        genderAdapter = new SpinnerAdapterWithHint(this, android.R.layout.simple_spinner_item, gender);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGender.setAdapter(genderAdapter);
+
+        sizesWearAdapter = new SpinnerAdapterWithHint(this,android.R.layout.simple_spinner_item, sizesWear);
+        sizesWearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSizeWear.setAdapter(sizesWearAdapter);
+
+        sizesShoesAdapter = new SpinnerAdapterWithHint(this, android.R.layout.simple_spinner_item, sizesShoes) ;
+        sizesShoesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSizeShoes.setAdapter(sizesShoesAdapter);
+        //spSizeShoes.getChildAt(0).findViewById(android.R.id.text1).setPadding(-5,0,0,0);
+    }
+
+    private class SpinnerAdapterWithHint extends ArrayAdapter<String> {
+
+        public SpinnerAdapterWithHint(Context context, int resource, String[] objects) {
+            super(context, resource, objects);
+        }
+
+        public SpinnerAdapterWithHint(Context context, int resource, List objects){
+            super(context, resource, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View v = super.getView(position, convertView, parent);
+            TextView qwe = ((TextView)v.findViewById(android.R.id.text1));
+            return v;
+        }
     }
 
     private void showDatePicker() {
@@ -209,8 +281,8 @@ public class ActivityVipCard extends AppCompatActivity {
             return false;
         }
 
-        if (TextUtils.isEmpty(etMName.getText().toString())) {
-            etMName.setError(error);
+        if (spGender.getSelectedItemPosition() == 0) {
+            spGender.setError(error);
             return false;
         }
 
@@ -224,30 +296,25 @@ public class ActivityVipCard extends AppCompatActivity {
             return false;
         }
 
-        if (TextUtils.isEmpty(etEmail.getText().toString())) {
-            etEmail.setError(error);
-            return false;
-        }
-
         if (TextUtils.isEmpty(etBirthday.getText().toString())) {
             etBirthday.setError(error);
             return false;
         }
 
-        if (TextUtils.isEmpty(etWear.getText().toString())) {
-            etWear.setError(error);
+        if (spSizeWear.getSelectedItemPosition()==0) {
+            spSizeWear.setError(error);
             return false;
         }
 
-        if (TextUtils.isEmpty(etShoes.getText().toString())) {
-            etShoes.setError(error);
+        if (spSizeShoes.getSelectedItemPosition()==0) {
+            spSizeShoes.setError(error);
             return false;
         }
 
         return true;
     }
 
-    private void clearFields(){
+    private void clearFields() {
         etFName.setText("");
         etLName.setText("");
         etMName.setText("");
@@ -256,8 +323,11 @@ public class ActivityVipCard extends AppCompatActivity {
         etDiscountCode.setText("");
         etEmail.setText("");
         etBirthday.setText("");
-        etWear.setText("");
-        etShoes.setText("");
+
+        spGender.setSelection(0);
+        spSizeWear.setSelection(0);
+        spSizeShoes.setSelection(0);
+
         //ivPhoto.setImageResource(android.R.color.transparent);
         ivPhoto.setImageDrawable(null);
         ivPhoto.setImageDrawable(null);
@@ -274,8 +344,8 @@ public class ActivityVipCard extends AppCompatActivity {
         values.put(4, etDiscountCode.getText().toString());
         values.put(5, etEmail.getText().toString());
         values.put(6, valiBirthdDate);
-        values.put(7, etWear.getText().toString());
-        values.put(8, etShoes.getText().toString());
+        values.put(7, spSizeWear.getSelectedItem().toString());
+        values.put(8, spSizeShoes.getSelectedItem().toString());
 
         log.debug("photo is {} ", ivPhoto.getDrawable());
 
@@ -283,24 +353,39 @@ public class ActivityVipCard extends AppCompatActivity {
                 Utils.getBytes(
                         ((BitmapDrawable) ivPhoto.getDrawable()).getBitmap()));
         values.put(9, photo);
+        values.put(10, spGender.getSelectedItem().toString());
 
-        if (NetworkHelper.hasWIFIConnection(this)) {
+       // if (NetworkHelper.hasWIFIConnection(this)) {
 
             NetworkHelper.addVipCard(values, this, new NetworkHelper.RequestListener() {
                 @Override
                 public void OnRequestComplete(final Object result) {
+
+                    final Response response = Utils.convertJSONtoProduct(Utils.convertXmltoJSON((String) result));
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            log.debug("addVipCard sucess {}", (String) result);
-                            btnAddCard.setProgress(100);
-                            btnAddCard.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    clearFields();
-                                    btnAddCard.setProgress(0);
-                                }
-                            }, 1500);
+                            if (response.getStatus() == NetworkHelper.REQUEST_STATUS_OK) {
+                                log.debug("addVipCard sucess {}", (String) result);
+                                btnAddCard.setProgress(100);
+                                btnAddCard.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        clearFields();
+                                        btnAddCard.setProgress(0);
+                                    }
+                                }, 1500);
+
+                            } else {
+                                btnAddCard.setProgress(-1);
+                                btnAddCard.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Utils.showErrorDialog(ActivityVipCard.this, response.getDescription());
+                                        btnAddCard.setProgress(0);
+                                    }
+                                }, 1500);
+                            }
                         }
                     });
                 }
@@ -322,10 +407,9 @@ public class ActivityVipCard extends AppCompatActivity {
                     });
                 }
             });
-        }else{
-            btnAddCard.setProgress(0);
-            Utils.showErrorDialog(ActivityVipCard.this, getString(R.string.s_dialog_message_wifi));
-        }
+        //} else {
+       //     btnAddCard.setProgress(0);
+          //  Utils.showErrorDialog(ActivityVipCard.this, getString(R.string.s_dialog_message_wifi));
+       // }
     }
-
 }

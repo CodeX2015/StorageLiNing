@@ -7,6 +7,8 @@
     <color name="c_material_red_A400">#ed2648</color>
     <color name="c_material_red_900">#b62025</color>
     <color name="c_material_grey_700">#616161</color>
+    <color name="c_hint_text">#B1B1B1</color>
+    <color name="c_error_text">#FA002F</color>
 
     <color name="c_cpb_grey">#ffdedede</color>
     <color name="c_cpb_blue">#ff0099cc</color>
